@@ -21,8 +21,8 @@
     "fmt": "prettier --write './*.{mjs,js,ts,md,json,html}' './{src,docs,tests}/{,**/}*.{mjs,js,ts,md,json,html}'"
   },
   "author": {
-    "name": "Leo Chandra",
-    "email": "leo.chandra11@google.com"
+    "name": "Surma",
+    "email": "surma@google.com"
   },
   "repository": {
     "type": "git",
