@@ -11,19 +11,14 @@
  * limitations under the License.
  */
 
-import * as Comlink from "/base/dist/esm/comlink.mjs";
+import * as Comlink from "../../src/comlink";
 
-describe("Comlink across workers", function () {
-  beforeEach(function () {
-    this.worker = new Worker("/base/tests/fixtures/worker.js");
-  });
+class SampleClass {
+  constructor(public init = 1) {}
+}
 
-  afterEach(function () {
-    this.worker.terminate();
-  });
-
-  it("can communicate", async function () {
-    const proxy = Comlink.wrap(this.worker);
-    expect(await proxy(1, 3)).to.equal(4);
-  });
+export default Comlink.expose({
+  sum: (a: number, b: number) => a + b,
+  value: Comlink.proxy({ value: 4 }),
+  SampleClass: SampleClass,
 });

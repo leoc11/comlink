@@ -11,6 +11,18 @@
  * limitations under the License.
  */
 
-importScripts("/base/dist/umd/comlink.js");
+/// <reference lib="webworker" />
 
-Comlink.expose((a, b) => a + b);
+import * as Comlink from "../../src/comlink";
+import { locks } from "web-locks";
+
+(navigator as any).locks = locks;
+const sum = (a: number, b: number) => a + b;
+export default sum;
+
+const self = globalThis as unknown as SharedWorkerGlobalScope;
+self.onconnect = function (event) {
+  const port = event.ports[0];
+
+  Comlink.expose(sum, port, ["*"], 30);
+};
