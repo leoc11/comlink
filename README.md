@@ -1,3 +1,6 @@
+A fork of comlink with several changes. see [`CHANGELOG`](https://github.com/leoc11/comlink/blob/feat/forklink/CHANGELOG.md) for more details.
+[`Related PR`](https://github.com/GoogleChromeLabs/comlink/pull/683)
+
 # Comlink
 
 Comlink makes [WebWorkers][webworker] enjoyable. Comlink is a **tiny library (1.1kB)**, that removes the mental barrier of thinking about `postMessage` and hides the fact that you are working with workers.

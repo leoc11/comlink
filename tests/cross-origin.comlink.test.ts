@@ -11,73 +11,67 @@
  * limitations under the License.
  */
 
-import * as Comlink from "/base/dist/esm/comlink.mjs";
-
+import { expect, test, describe } from "bun:test";
+import * as Comlink from "../src/comlink";
+import { HTMLIFrameElement } from "./mocks/HTMLIFrameElement";
+Error.stackTraceLimit = 100;
 describe("Comlink origin filtering", function () {
-  it("rejects messages from unknown origin", async function () {
+  test("rejects messages from unknown origin", async function () {
     // expose on our window so comlink is listening to window postmessage
     const obj = { my: "value" };
     Comlink.expose(obj, self, [/^http:\/\/localhost(:[0-9]+)?\/?$/]);
 
-    let handler;
+    let handler: any = null;
+    let ifr: HTMLIFrameElement = null as any;
     // juggle async timings to get the attack started
-    const attackComplete = new Promise((resolve, reject) => {
-      handler = (ev) => {
+    const attackComplete = new Promise<void>((resolve) => {
+      handler = ((ev: MessageEvent) => {
         if (ev.data === "ready" && ev.origin === "null") {
           // tell the iframe it can start the attack
           ifr.contentWindow.postMessage("start", "*");
         } else if (ev.data === "done") {
           // confirm the attack failed, the prototype was not updated
-          expect(Object.prototype.foo).to.be.undefined;
-          expect(obj.my).to.equal("value");
+          expect((Object as any).prototype.foo).toBeUndefined();
+          expect(obj.my).toBe("value");
           resolve();
         }
-      };
-      window.addEventListener("message", handler);
+      }) as any;
+      globalThis.addEventListener("message", handler);
     });
-    // create a sandboxed iframe for the attack
-    const ifr = document.createElement("iframe");
-    ifr.sandbox.add("allow-scripts");
-    ifr.src = "/base/tests/fixtures/attack-iframe.html";
-    document.body.appendChild(ifr);
-    // wait for the iframe to load
-    await new Promise((resolve) => (ifr.onload = resolve));
+
+    ifr = new HTMLIFrameElement(import.meta.url, "null");
+    ifr.src = "./fixtures/attack-iframe.ts";
+    await new Promise<void>((resolve) => (ifr.onload = resolve));
     // and wait for the attack to complete
     await attackComplete;
-    window.removeEventListener("message", handler);
-    ifr.remove();
+    globalThis.removeEventListener("message", handler);
   });
-  it("accepts messages from matching origin", async function () {
+  test("accepts messages from matching origin", async function () {
     // expose on our window so comlink is listening to window postmessage
     const obj = { my: "value" };
     Comlink.expose(obj, self, [/^http:\/\/localhost(:[0-9]+)?\/?$/]);
 
-    let handler;
+    let handler: any = null;
+    let ifr: HTMLIFrameElement = null as any;
     // juggle async timings to get the attack started
-    const attackComplete = new Promise((resolve, reject) => {
-      handler = (ev) => {
-        if (ev.data === "ready" && ev.origin === window.origin) {
+    const attackComplete = new Promise<void>((resolve, reject) => {
+      handler = ((ev: MessageEvent) => {
+        if (ev.data === "ready") {
           // tell the iframe it can start the attack
           ifr.contentWindow.postMessage("start", "*");
         } else if (ev.data === "done") {
           // confirm the attack succeeded, the prototype was updated
-          expect(Object.prototype.foo).to.equal("x");
-          expect(obj.my).to.equal("value");
+          expect((Object as any).prototype.foo).toBe("x");
+          expect(obj.my).toBe("value");
           resolve();
         }
-      };
-      window.addEventListener("message", handler);
+      }) as any;
+      globalThis.addEventListener("message", handler);
     });
-    // create a sandboxed iframe for the attack, but with same origin
-    const ifr = document.createElement("iframe");
-    ifr.sandbox.add("allow-scripts", "allow-same-origin");
-    ifr.src = "/base/tests/fixtures/attack-iframe.html";
-    document.body.appendChild(ifr);
-    // wait for the iframe to load
-    await new Promise((resolve) => (ifr.onload = resolve));
+    ifr = new HTMLIFrameElement(import.meta.url);
+    ifr.src = "./fixtures/attack-iframe.ts";
     // and wait for the attack to complete
     await attackComplete;
-    window.removeEventListener("message", handler);
-    ifr.remove();
+    globalThis.removeEventListener("message", handler);
   });
 });
