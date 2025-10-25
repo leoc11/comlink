@@ -1,4 +1,4 @@
-# Comlink v4.4.2 -> Forklink 0.1.0
+# v4.4.2 -> v4.4.2-fork.1
 FEATURE
 - `Comlink.opch` for optional chaining `Remote` object
 - `Comlink.pool`. `Comlink.wrap` with thread pool (close: #657)

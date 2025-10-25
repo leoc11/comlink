@@ -1,7 +1,7 @@
 {
-  "name": "forklink",
-  "version": "0.1.0",
-  "description": "Comlink fork. Comlink makes WebWorkers enjoyable",
+  "name": "@leoc11/comlink",
+  "version": "4.4.2-fork.1",
+  "description": "a Comlink fork. Comlink makes WebWorkers enjoyable",
   "main": "dist/cjs/comlink.js",
   "module": "dist/esm/comlink.mjs",
   "types": "dist/esm/comlink.d.ts",

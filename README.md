@@ -1,6 +1,4 @@
-# Forklink
-
-A fork of comlink with several changes. see [`CHANGELOG`](https://github.com/leoc11/comlink/blob/feat/pool-bun/CHANGELOG.md) for more details.
+A fork of comlink with several changes. see [`CHANGELOG`](https://github.com/leoc11/comlink/blob/feat/forklink/CHANGELOG.md) for more details.
 [`Related PR`](https://github.com/GoogleChromeLabs/comlink/pull/683)
 
 # Comlink
