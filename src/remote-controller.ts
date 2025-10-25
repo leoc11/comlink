@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright 2019 Google LLC
+ * Copyright 2025 Leo Chandra
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import {
   IRemoteController,
   Remote,

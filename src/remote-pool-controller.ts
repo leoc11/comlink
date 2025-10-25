@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright 2025 Leo Chandra
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { IRemoteController, Remote } from "./common";
 import { remoteFinalizers, getRemoteController } from "./consumer";
 import { Endpoint, ProxyID, WireValue } from "./protocol";

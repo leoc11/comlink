@@ -1,18 +1,18 @@
 {
-  "name": "comlink",
-  "version": "4.4.2",
-  "description": "Comlink makes WebWorkers enjoyable",
+  "name": "forklink",
+  "version": "0.1.0",
+  "description": "Comlink fork. Comlink makes WebWorkers enjoyable",
   "main": "dist/cjs/comlink.js",
   "module": "dist/esm/comlink.mjs",
   "types": "dist/esm/comlink.d.ts",
   "sideEffects": false,
   "scripts": {
     "build": "bun run build:mjs && bun run build:mjs.min && bun run build:mjs.type && bun run build:cjs && bun run build:cjs.min && bun run build:cjs.type",
-    "build:mjs": "bun build ./src/comlink.ts --outdir=dist/esm --sourcemap=linked --target=node --format=esm --entry-naming=[dir]/[name].mjs",
-    "build:mjs.min": "bun build ./src/comlink.ts --outdir=dist/esm --sourcemap=linked --target=node --format=esm --minify --entry-naming=[dir]/[name].min.mjs",
+    "build:mjs": "bun build ./src/comlink.ts --outdir=dist/esm --sourcemap=linked --target=node --format=esm --entry-naming=[dir]/[name].mjs --banner=\"/**\n * @license\n * Copyright 2019 Google LLC\n * Copyright 2025 Leo Chandra\n * SPDX-License-Identifier: Apache-2.0\n */\"",
+    "build:mjs.min": "bun build ./src/comlink.ts --outdir=dist/esm --sourcemap=linked --target=node --format=esm --minify --entry-naming=[dir]/[name].min.mjs --banner=\"/**\n * @license\n * Copyright 2019 Google LLC\n * Copyright 2025 Leo Chandra\n * SPDX-License-Identifier: Apache-2.0\n */\"",
     "build:mjs.type": "bunx tsc --emitDeclarationOnly --skipLibCheck --outDir dist/esm",
-    "build:cjs": "bun build ./src/comlink.ts --outdir=dist/cjs --sourcemap=linked --target=node --format=cjs",
-    "build:cjs.min": "bun build ./src/comlink.ts --outdir=dist/cjs --sourcemap=linked --target=node --format=cjs --minify --entry-naming=[dir]/[name].min.[ext]",
+    "build:cjs": "bun build ./src/comlink.ts --outdir=dist/cjs --sourcemap=linked --target=node --format=cjs --banner=\"/**\n * @license\n * Copyright 2019 Google LLC\n * Copyright 2025 Leo Chandra\n * SPDX-License-Identifier: Apache-2.0\n */\"",
+    "build:cjs.min": "bun build ./src/comlink.ts --outdir=dist/cjs --sourcemap=linked --target=node --format=cjs --minify --entry-naming=[dir]/[name].min.[ext] --banner=\"/**\n * @license\n * Copyright 2019 Google LLC\n * Copyright 2025 Leo Chandra\n * SPDX-License-Identifier: Apache-2.0\n */\"",
     "build:cjs.type": "bunx tsc --emitDeclarationOnly --skipLibCheck --outDir dist/cjs",
     "test": "bun run test:unit && bun run test:type && bun run test:fmt",
     "test:type": "bunx tsc -p tsconfig.test.json",
@@ -21,12 +21,12 @@
     "fmt": "prettier --write './*.{mjs,js,ts,md,json,html}' './{src,docs,tests}/{,**/}*.{mjs,js,ts,md,json,html}'"
   },
   "author": {
-    "name": "Surma",
-    "email": "surma@google.com"
+    "name": "Leo Chandra",
+    "email": "leo.chandra11@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GoogleChromeLabs/comlink.git"
+    "url": "https://github.com/leoc11/comlink.git"
   },
   "license": "Apache-2.0",
   "devDependencies": {

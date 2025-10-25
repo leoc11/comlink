@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright 2025 Leo Chandra
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 export type { PoolOptions } from "./remote-pool-controller";
 import { ProxyMarked, RemotePool, UnProxyMarked } from "./common";
 import { createRemote } from "./consumer";
