@@ -4,3 +4,4 @@ docs/
 src/
 .gitignore
 tsconfig.test.json
+bun.lock
