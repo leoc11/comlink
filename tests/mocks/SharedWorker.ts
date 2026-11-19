@@ -11,9 +11,9 @@ export class SharedWorker {
     if (!sharedWorkerMap.has(src.href)) {
       const workerCode = `
 globalThis.SharedWorkerGlobalScope = globalThis.constructor;
-await import('${src.pathname.slice(1)}');
-globalThis.onmessage = (e) => {
+globalThis.onmessage = async (e) => {
   // we treat 'connect' specially
+  await import('${src.pathname.slice(1)}');
   if (e.data && e.data.type === 'connect') {
     const port = e.ports && e.ports[0];
     if (!port) return;
