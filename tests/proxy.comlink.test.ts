@@ -9,7 +9,6 @@ import {
 } from "../src/comlink";
 import worker_1 from "./fixtures/worker_1";
 import worker_2 from "./fixtures/worker_2";
-import { BunWorkerPatched } from "./mocks/BunWorkerPatched";
 import { tidEndPointMap } from "../src/common";
 
 describe("Comlink remote transfer", function () {
@@ -214,11 +213,11 @@ describe("Comlink remote transfer", function () {
   });
 
   test("can pas remote object to other", async function () {
-    const worker1 = new BunWorkerPatched(
+    const worker1 = new Worker(
       new URL("./fixtures/worker_1.ts", import.meta.url),
       { type: "module" }
     );
-    const worker2 = new BunWorkerPatched(
+    const worker2 = new Worker(
       new URL("./fixtures/worker_2.ts", import.meta.url),
       { type: "module" }
     );
@@ -236,11 +235,11 @@ describe("Comlink remote transfer", function () {
   });
 
   test("avoid re-proxy, always create direct message channel", async function () {
-    const worker1 = new BunWorkerPatched(
+    const worker1 = new Worker(
       new URL("./fixtures/worker_1.ts", import.meta.url),
       { type: "module" }
     );
-    const worker2 = new BunWorkerPatched(
+    const worker2 = new Worker(
       new URL("./fixtures/worker_2.ts", import.meta.url),
       { type: "module" }
     );
@@ -264,11 +263,11 @@ describe("Comlink remote transfer", function () {
   });
 
   test("merge message channel, maintain 1 message channel per thread", async function () {
-    const worker1 = new BunWorkerPatched(
+    const worker1 = new Worker(
       new URL("./fixtures/worker_1.ts", import.meta.url),
       { type: "module" }
     );
-    const worker2 = new BunWorkerPatched(
+    const worker2 = new Worker(
       new URL("./fixtures/worker_2.ts", import.meta.url),
       { type: "module" }
     );
