@@ -78,12 +78,11 @@ const remoteTransferHandler: TransferHandler<Remote, SeralizedRemoteValue> = {
             type: MessageType.MERGE,
             tid: threadId,
           } as MergeMessage);
-          mp.onmessage = () => {
+          mp.addEventListener("message", () => {
             res();
-            mp.onmessage = null;
             mp.close();
-          };
-          mp.onmessageerror = rej;
+          });
+          mp.addEventListener("messageerror", rej);
         });
         ep = existingEp;
       } else {
@@ -199,3 +198,5 @@ const throwTransferHandler: TransferHandler<
 transferHandlers.set("remote", remoteTransferHandler);
 transferHandlers.set("proxy", proxyTransferHandler);
 transferHandlers.set("throw", throwTransferHandler);
+
+export default transferHandlers;
